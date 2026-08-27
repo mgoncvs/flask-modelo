@@ -1,11 +1,40 @@
 body{
-    background-color: bisque;
+    background-color: rgb(28, 90, 56);
+}
+
+.cartao{
+    margin: auto;
+    width: 400px;
+    background-color: rgb(254, 254, 255);
+    border: 3px solid rgb(146, 125, 6);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 h1{
-    color: darkgoldenrod;
+    color: rgb(168, 141, 18);
+    text-align: center;
 }
 
-p{
-    color: darkred;
+button{
+background-color: rgb(146, 125, 30);
+color: rgb(0, 0, 0);
+border: 1px solid gray;
+border-radius: 10px;
+width: 400px;
+margin-bottom: 10px;
+padding: 7px;
+font-size: medium;
+}
+
+label{
+    width: 100%;
+}
+
+input{
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 7px;
 }
