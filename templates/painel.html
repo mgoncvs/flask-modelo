@@ -4,7 +4,8 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
     </head>
     <body>
-        <h1>Site Flask!</h1>
-        <p>Você acessou o site de DUDÃO</p>
+        <h1>Painel</h1>
+        <p>Bem vindo , {{usuario_nome}}! Seu CPF é {{usuario_cpf}}</p>
+        <a href="/Sair"> <button>Sair</button> </a>
     </body>
 </html>
