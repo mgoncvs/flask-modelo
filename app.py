@@ -1,42 +1,43 @@
-from flask import Flask, render_template, request, redirect , session
+from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'chave-super-secreta'
+
+app.secret_key = "minha-chave-secreta"
+
 
 @app.route("/")
-def login():
-    return render_template("login.html")
+def index():
+    tarefas = session.get("tarefas", [])
+    return render_template("index.html", tarefas=tarefas)
 
-@app.route("/painel")
-def painel():
-    if 'usuario_nome' in session:
-        return render_template("painel.html",usuario_nome=session['usuario_nome'],usuario_cpf=session['usuario_cpf'])
-    return redirect('/')
 
-@app.route("/verificar", methods=['POST'])
-def verificar():
-    cpf = request.form.get('cpf')
-    senha = request.form.get('senha')
+@app.route("/add", methods=["POST"])
+def add():
+    tarefa = request.form.get("tarefa")
 
-    print('tentando login com: ', cpf,'/senha: ',senha)
-    
-    if cpf == "07771232159" and senha == "4295":
-        session['usuario_nome'] = "maria"
-        session['usuario_cpf'] = cpf
-        return redirect('/painel')
-    
-    if cpf=="044223345608" and senha == "123454":
-        session['usuario_nome'] = "taylor"
-        session['usuario_cpf'] = cpf
-        return redirect('/painel')
+    tarefas = session.get("tarefas", [])
 
-    return redirect('/')
+    if tarefa:
+        tarefas.append(tarefa)
 
-@app.route('/Sair')
-def Sair():
-    session.pop('usuario_nome',None)
-    session.pop('usuario_cpf',None)
-    return redirect('/')
+    session["tarefas"] = tarefas
+    session.modified = True
+
+    return redirect("/")
+
+
+@app.route("/delete/<int:task_id>")
+def delete(task_id):
+    tarefas = session.get("tarefas", [])
+
+    if 0 <= task_id < len(tarefas):
+        tarefas.pop(task_id)
+
+    session["tarefas"] = tarefas
+    session.modified = True
+
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
